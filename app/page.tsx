@@ -1,5 +1,5 @@
 export default function Home() {
   return (
-  <div>Hello Trip Nook</div>
+  <div>Hello Trip Nook</div> 
   )
 }
