@@ -8,8 +8,8 @@ interface ModalProps {
   onClose: () => void;
   onSubmit: () => void;
   title?: string;
-  body?: string;
-  footer?: string;
+  body?: React.ReactElement;
+  footer?: React.ReactElement;
   actionLabel: string;
   disabled?: boolean;
   secondaryAction?: () => void;
@@ -75,17 +75,16 @@ const Modal: React.FC<ModalProps> = ({
             <div className="translate h-full lg:h-auto md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col bg-white outline-none focus:outline-none">
               {/*header*/}
               <div className="flex items-center p-6 justify-center rounded-t relative border-b-[1px]">
-                <button className="p-1 border-0 transition absolute left-9">
+                <button
+                  className="p-1 border-0 transition absolute left-9"
+                  onClick={handleClose}
+                >
                   <IoMdClose size={18} />
                 </button>
-                <div className="text-lg font-semibold">
-                  {title} Hey this is the title{" "}
-                </div>
+                <div className="text-lg font-semibold">{title}</div>
               </div>
               {/*body*/}
-              <div className="relative p-6 flex-auto">
-                {body} Hey there this my body
-              </div>
+              <div className="relative p-6 flex-auto">{body}</div>
               {/*footer*/}
               <div className="flex flex-col gap-2 p-6">
                 <div className="flex flex-row items-center gap-4 w-full">
@@ -103,7 +102,6 @@ const Modal: React.FC<ModalProps> = ({
                     onClick={handleSubmit}
                   />
                 </div>
-                Footer
               </div>
             </div>
           </div>
