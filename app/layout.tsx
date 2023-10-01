@@ -5,7 +5,7 @@ import Navbar from "./components/navbar/Navbar";
 import ClientOnly from "./components/ClientOnly";
 import RegisterModal from "./components/modals/RegisterModal";
 import LoginModal from "./components/modals/LoginModal";
-import Modal from "./components/modals/Modal";
+// import Modal from "./components/modals/Modal";
 
 const font = Nunito({ subsets: ["latin"] });
 
