@@ -34,18 +34,22 @@ const LoginModal = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setLoading(true);
+    signIn("credentials", {
+      ...data,
+      redirect: false,
+    }).then((callback) => {
+      setLoading(false);
 
-    axios
-      .post("/api/login", data)
-      .then((res) => {
+      if (callback?.ok) {
+        toast.success("Logged in successfully");
+        router.refresh();
         loginModal.onClose();
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      }
+
+      if (callback?.error) {
+        toast.error(callback.error);
+      }
+    });
   };
 
   const onToggle = useCallback(() => {
