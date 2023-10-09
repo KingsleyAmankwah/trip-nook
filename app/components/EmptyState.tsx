@@ -12,7 +12,7 @@ interface EmptyStateProps {
 
 const EmptyState = ({
   title = "No matches",
-  subtitle = "Try changing or removing somw of the filters.",
+  subtitle = "Try changing or removing some of the filters.",
   showReset,
 }: EmptyStateProps) => {
   const router = useRouter();
