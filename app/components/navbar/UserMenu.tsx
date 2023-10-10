@@ -1,15 +1,16 @@
 "use client";
 
+import { useCallback, useEffect, useRef, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
-import Avatar from "../Avatar";
-import { useCallback, useState } from "react";
-import MenuItem from "./MenuItem";
+import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { SafeUser } from "@/app/types";
+
+import Avatar from "../Avatar";
+import MenuItem from "./MenuItem";
+
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
-import { User } from "@prisma/client";
-import { signOut } from "next-auth/react";
-import { SafeUser } from "@/app/types";
 import useRentModal from "@/app/hooks/useRentModal";
 
 interface UserMenuProps {
@@ -22,6 +23,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
   const rentModal = useRentModal();
+  const userMenuRef = useRef<HTMLDivElement>(null);
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
@@ -34,8 +36,30 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
 
     rentModal.onOpen();
   }, [currentUser, loginModal, rentModal]);
+
+  const handleOutsideClick = useCallback(
+    (event: MouseEvent) => {
+      // Close the menu if the click is outside the user menu
+      if (
+        userMenuRef.current &&
+        !userMenuRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    },
+    [setIsOpen]
+  );
+
+  useEffect(() => {
+    document.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, [handleOutsideClick]);
+
   return (
-    <div className="relative">
+    <div className="relative" ref={userMenuRef}>
       <div className="flex flex-row items-center gap-3">
         <div
           onClick={onRentOut}
