@@ -15,8 +15,15 @@ const Counter = ({ title, subtitle, value, onChange }: CounterProps) => {
     onChange(value + 1);
   }, [onChange, value]);
 
+  // const onReduce = useCallback(() => {
+  //   onChange(value - 1);
+  // }, [onChange, value]);
+
   const onReduce = useCallback(() => {
-    onChange(value - 1);
+    // Check if the value is greater than 1 before decrementing
+    if (value > 1) {
+      onChange(value - 1);
+    }
   }, [onChange, value]);
   return (
     <div className="flex flex-row items-center justify-between">
