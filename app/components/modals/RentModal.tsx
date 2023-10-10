@@ -252,6 +252,7 @@ const RentModal = () => {
           id="price"
           label="Price"
           type="number"
+          min={100}
           formatPrice
           register={register}
           errors={errors}
