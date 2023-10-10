@@ -9,6 +9,7 @@ interface InputProps {
   disabled?: boolean;
   formatPrice?: boolean;
   required?: boolean;
+  min?: number;
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors;
 }
@@ -21,6 +22,7 @@ const Input: React.FC<InputProps> = ({
   formatPrice,
   register,
   required,
+  min = 100,
   errors,
 }) => {
   return (
@@ -81,6 +83,7 @@ const Input: React.FC<InputProps> = ({
                   ${errors[id] ? "border-rose-500" : "border-neutral-300"}
                   ${errors[id] ? "focus:border-rose-500" : "focus:border-black"}
                 `}
+        min={min}
       />
     </div>
   );
